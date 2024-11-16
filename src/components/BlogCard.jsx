@@ -1,15 +1,23 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/prop-types */
+import { FavoriteBorder, FavoriteBorderOutlined } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button, Card, CardActions, CardContent, CardMedia, Chip, IconButton, Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const BlogCard = (props) => {
-    const { blog, deleteBlog = () => {}, showDeleteIcon = true } = props;
+    const { blog, deleteBlog = () => {}, showDeleteIcon = true, isFavorite=()=>{}, removeFavorite, addFavorite} = props;
     // Favorites Table as well in the database
 
     const navigate = useNavigate();
+    const handleFavoriteClick=()=>{
+        if (isFavorite) {
+            removeFavorite(blog);
+        } else {
+            addFavorite(blog);
+        }
+    }
 
     return (
         <Card style={{ position: 'relative' }}>
@@ -34,7 +42,9 @@ const BlogCard = (props) => {
 
             </CardContent>
             <CardActions>
-                <Button color='success' variant='contained'>Favorite</Button>
+                <IconButton aria-label="favorite" onClick={() => handleFavoriteClick(blog)}>
+                    {isFavorite ? <FavoriteBorder color="error" /> : <FavoriteBorderOutlined />}
+                </IconButton>
                 <Button color='secondary' variant='contained' onClick={() => navigate(`/viewblogs/${blog.id}`)}>Learn More</Button>
             </CardActions>
         </Card>

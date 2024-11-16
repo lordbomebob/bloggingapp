@@ -34,7 +34,7 @@ function App() {
       element: <ViewBlogDetailsPage />
     },
     {
-      path:'viewfavorite/:uid',
+      path:'/viewfavorite',
       element:<ViewFavoritePage/>
     },
     {
